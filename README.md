@@ -245,4 +245,20 @@ Copy the code into the onCreate() method. This will work with AR.
             }
         }
     }
-    ```
+```
+    
+**BUILD.GRADLE:**
+THIS IS OF UTMOST IMPORTANCE: USE MIN VERSION 25 AND TARGET 28! (in /app/build.grade)
+
+```
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.google.ar.sceneform.samples.hellosceneform"
+
+        // 24 is the minimum since ARCore only works with 24 and higher.
+        minSdkVersion 25
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+  ```
