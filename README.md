@@ -4,9 +4,10 @@
 **App Info:**
 The program allows the user to record the ENTIRE screen while inside of the app. The recorder does not record when outside of the app. MediaProjection and MediaProjectionManager (android.media.projection.*) are the two classes main classes implemented. 
 
+*All of these variables are mandatory for the MediaProjection to work. The process does not change for implementing this in Augmented Reality. The only difference is putting the code you are copying in onCreate() after super.OnCreate() and setContentView, and before the rest of the AR Code.*
+
 ## How to use:
 The code must be copied into the Activity that is will recorded in. (See https://github.com/robertbrodin/screenrecorder/blob/master/app/src/main/java/org/risingtide/screenrecorder/MainActivity.java for comments)
-*All of these variables are mandatory for the MediaProjection to work. The process does not change for implementing this in Augmented Reality. The only difference is putting the code you are copying in onCreate() after super.OnCreate() and setContentView, and before the rest of the AR Code.*
 **Necessary classes to import:**
 ```
 // Need to import all of these Classes to make the Screen recording work.
