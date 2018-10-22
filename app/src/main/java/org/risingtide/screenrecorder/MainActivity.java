@@ -70,11 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // inits the recorder (settings for recording)
         initRecorder();
         prepareRecorder();
-
-        // Creates a MediaProjectionManager object in the context of the app.
-        mProjectionManager = (MediaProjectionManager) getSystemService
-                (Context.MEDIA_PROJECTION_SERVICE);
-
+        
         // Finds button with ID toggle. This can be changed to any button, you will just need to cast it to (RadioButton) or (Button) instead of (ToggleButton).
         mToggleButton = (ToggleButton) findViewById(R.id.toggle);
 
@@ -122,24 +118,25 @@ public class MainActivity extends AppCompatActivity {
     // Toggles Screen recording on and off.
     public void onToggleScreenShare(View view) {
         if (((ToggleButton) view).isChecked()) {
+            initRecorder();
+            prepareRecorder();
+            mProjectionManager = (MediaProjectionManager) getSystemService
+                    (Context.MEDIA_PROJECTION_SERVICE);
+
+
+            mToggleButton.setBackgroundColor(Color.TRANSPARENT);
+            mToggleButton.setText("   ");
             shareScreen();
         } else {
-            mMediaRecorder.stop();
+            //mMediaRecorder.stop();
             mMediaRecorder.reset();
             Log.v(TAG, "Recording Stopped");
             stopScreenSharing();
+            mToggleButton.setText("Off");
+            mToggleButton.setVisibility(View.VISIBLE);
+            mToggleButton.setBackgroundColor(getResources().getColor(R.color.lightBlueTheme));
         }
-    }
 
-    // Starts screen recording.
-    private void shareScreen() {
-        if (mMediaProjection == null) {
-            startActivityForResult(mProjectionManager.createScreenCaptureIntent(), PERMISSION_CODE);
-            return;
-        }
-        mVirtualDisplay = createVirtualDisplay();
-        mMediaRecorder.start();
-    }
 
     // Stops screen recording.
     private void stopScreenSharing() {
@@ -147,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         mVirtualDisplay.release();
+        mMediaRecorder.reset();
         //mMediaRecorder.release();
     }
 
@@ -229,13 +227,15 @@ public class MainActivity extends AppCompatActivity {
 
             if (mMediaRecorder == null) {
                 mMediaRecorder = new MediaRecorder();
-                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            }
+                
+                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
                 mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
                 mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+                mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
                 mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                 // Bitrate is set relative to the screen, so it is just the width of the device * the height of the device.
-                mMediaRecorder.setVideoEncodingBitRate(DISPLAY_WIDTH * DISPLAY_HEIGHT);
+                mMediaRecorder.setVideoEncodingBitRate(10000000);
                 // Framerate crashed at 60 when testing.
                 mMediaRecorder.setVideoFrameRate(30);
                 // Sets video size relative to the phone.
