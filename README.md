@@ -6,6 +6,9 @@ The program allows the user to record the ENTIRE screen while inside of the app.
 
 ## How to use:
 The code must be copied into the Activity that is will recorded in. (See https://github.com/robertbrodin/screenrecorder/blob/master/app/src/main/java/org/risingtide/screenrecorder/MainActivity.java for comments)
+
+*NOTE: There is a glitch when recording, after clicking record, the object placed is removed, and needs to be replaced in the space. It would be better to start recording before placing an object so this is not an issue.*
+
 **Necessary classes to import:**
 ```
 // Need to import all of these Classes to make the Screen recording work.
