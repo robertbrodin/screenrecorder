@@ -230,21 +230,20 @@ Copy the code into the onCreate() method. This will work with AR.
                     YOUR_REQUEST_CODE);
 
 
-            if (mMediaRecorder == null) {
+if (mMediaRecorder == null) {
                 mMediaRecorder = new MediaRecorder();
-                mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
-                mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-                mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                // Bitrate is set relative to the screen, so it is just the width of the device * the height of the device.
-                mMediaRecorder.setVideoEncodingBitRate(DISPLAY_WIDTH * DISPLAY_HEIGHT);
-                // Framerate crashed at 60 when testing.
-                mMediaRecorder.setVideoFrameRate(30);
-                // Sets video size relative to the phone.
-                mMediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-                // Sets file path using the getFilePath() method.
-                mMediaRecorder.setOutputFile(getFilePath());
+            }
+            //CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_1080P);
+
+            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
+            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+            mMediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+            mMediaRecorder.setVideoFrameRate(30);
+            mMediaRecorder.setOutputFile(getFilePath());
+            mMediaRecorder.setVideoEncodingBitRate(10000000);
             }
         }
     }
